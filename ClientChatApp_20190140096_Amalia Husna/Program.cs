@@ -42,7 +42,4 @@ namespace ClientChatApp_20190140096_Amalia_Husna
             }
         }
     }
-    public interface IServiceCallbackCallback
-    {
-    }
 }
