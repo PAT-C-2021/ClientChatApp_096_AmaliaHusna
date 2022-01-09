@@ -7,36 +7,42 @@ using System.Threading.Tasks;
 
 namespace ClientChatApp_20190140096_Amalia_Husna
 {
-    class Program
+    public class ClientCallback : ServiceReference1.IServiceCallbackCallback
     {
-        public class ClientCallBack : ServiceReference1.IServiceCallBackCallback
+        public void pesamKirim(string user, string pesan)
         {
-            public void pesanKirim(string user, string pesan)
-            {
-                Console.WriteLine("{0}: {1}", user, pesan);
-            }
-
+            Console.WriteLine("{0}: {1}", user, pesan);
         }
 
+        public void pesanKirim(string user, string pesan)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    class Program
+    {
         static void Main(string[] args)
         {
-            InstanceContext context = new InstanceContext(new ClientCallBack());
-            ServiceReference1.ServiceCallBackClient server = new ServiceReference1.ServiceCallBackClient(context);
+            InstanceContext context = new InstanceContext(new ClientCallback());
+            ServiceReference1.ServiceCallbackClient server = new ServiceReference1.ServiceCallbackClient(context);
 
-            Console.WriteLine("Masukkan Username : ");
+            Console.WriteLine("Enter Username");
             string nama = Console.ReadLine();
             server.gabung(nama);
 
-            Console.WriteLine("Kirim Pesan : ");
+            Console.WriteLine("Kirim Pesan");
             string pesan = Console.ReadLine();
 
             while (true)
             {
                 if (!string.IsNullOrEmpty(pesan))
                     server.kirimPesan(pesan);
-                Console.WriteLine("Kirim Pesan : " + "\n");
+                Console.WriteLine("Kirim Pesan");
                 pesan = Console.ReadLine();
             }
         }
+    }
+    public interface IServiceCallbackCallback
+    {
     }
 }
